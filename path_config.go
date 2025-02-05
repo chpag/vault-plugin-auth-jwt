@@ -114,6 +114,10 @@ func pathConfig(b *jwtAuthBackend) *framework.Path {
 				Type:        framework.TypeCommaStringSlice,
 				Description: `A list of ASN1 OIDs of certificate extensions marked Critical that are unsupported by Vault and should be ignored.  This option should very rarely be needed except in specialized PKI environments.`,
 			},
+			"acr_values": {
+				Type:        framework.TypeCommaStringSlice,
+				Description: "Authentication Context Class Reference values for all the authentication requests made with this provider. Addition to possible 'acr_values' of a role. Optional.",
+			},
 		},
 
 		Operations: map[logical.Operation]framework.OperationHandler{
@@ -217,6 +221,7 @@ func (b *jwtAuthBackend) pathConfigRead(ctx context.Context, req *logical.Reques
 			"provider_config":                      providerConfig,
 			"namespace_in_state":                   config.NamespaceInState,
 			"unsupported_critical_cert_extensions": config.UnsupportedCriticalCertExtensions,
+			"acr_values":             		config.ACRValues,
 		},
 	}
 
@@ -240,6 +245,7 @@ func (b *jwtAuthBackend) pathConfigWrite(ctx context.Context, req *logical.Reque
 		BoundIssuer:                       d.Get("bound_issuer").(string),
 		ProviderConfig:                    d.Get("provider_config").(map[string]interface{}),
 		UnsupportedCriticalCertExtensions: d.Get("unsupported_critical_cert_extensions").([]string),
+		ACRValues:                         d.Get("acr_values").([]string),
 	}
 
 	// Check if the config already exists, to determine if this is a create or
@@ -500,6 +506,7 @@ type jwtConfig struct {
 	ProviderConfig                    map[string]interface{} `json:"provider_config"`
 	NamespaceInState                  bool                   `json:"namespace_in_state"`
 	UnsupportedCriticalCertExtensions []string               `json:"unsupported_critical_cert_extensions"`
+	ACRValues                         []string               `json:"acr_values"`
 
 	ParsedJWTPubKeys []crypto.PublicKey `json:"-"`
 }
