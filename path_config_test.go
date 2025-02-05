@@ -35,6 +35,7 @@ func TestConfig_JWT_Read(t *testing.T) {
 		"provider_config":                      map[string]interface{}{},
 		"namespace_in_state":                   false,
 		"unsupported_critical_cert_extensions": []string{},
+		"acr_values":                           []string{},
 	}
 
 	req := &logical.Request{
@@ -146,6 +147,7 @@ func TestConfig_JWT_Write(t *testing.T) {
 		ProviderConfig:                    map[string]interface{}{},
 		NamespaceInState:                  true,
 		UnsupportedCriticalCertExtensions: []string{},
+		ACRValues:                         []string{},
 	}
 
 	conf, err := b.(*jwtAuthBackend).config(context.Background(), storage)
@@ -263,6 +265,7 @@ func TestConfig_JWKS_Update(t *testing.T) {
 		"provider_config":                      map[string]interface{}{},
 		"namespace_in_state":                   false,
 		"unsupported_critical_cert_extensions": []string{},
+		"acr_values":                           []string{},
 	}
 
 	req := &logical.Request{
@@ -590,6 +593,7 @@ func TestConfig_OIDC_Write(t *testing.T) {
 		ProviderConfig:                    map[string]interface{}{},
 		NamespaceInState:                  true,
 		UnsupportedCriticalCertExtensions: []string{},
+		ACRValues:                         []string{},
 	}
 
 	conf, err := b.(*jwtAuthBackend).config(context.Background(), storage)
@@ -691,6 +695,7 @@ func TestConfig_OIDC_Write_ProviderConfig(t *testing.T) {
 				"2.5.29.54",
 				"2.5.29.36",
 			},
+			ACRValues:            []string{},
 		}
 
 		conf, err := b.(*jwtAuthBackend).config(context.Background(), storage)
@@ -750,6 +755,7 @@ func TestConfig_OIDC_Write_ProviderConfig(t *testing.T) {
 			ProviderConfig:                    map[string]interface{}{},
 			NamespaceInState:                  true,
 			UnsupportedCriticalCertExtensions: []string{},
+			ACRValues:                         []string{},
 		}
 
 		conf, err := b.(*jwtAuthBackend).config(context.Background(), storage)
@@ -782,6 +788,7 @@ func TestConfig_OIDC_Create_Namespace(t *testing.T) {
 				JWTValidationPubKeys:              []string{},
 				ProviderConfig:                    map[string]interface{}{},
 				UnsupportedCriticalCertExtensions: []string{},
+				ACRValues:                         []string{},
 			},
 		},
 		"namespace_in_state true": {
@@ -798,6 +805,7 @@ func TestConfig_OIDC_Create_Namespace(t *testing.T) {
 				JWTValidationPubKeys:              []string{},
 				ProviderConfig:                    map[string]interface{}{},
 				UnsupportedCriticalCertExtensions: []string{},
+				ACRValues:                         []string{},
 			},
 		},
 		"namespace_in_state false": {
@@ -814,6 +822,7 @@ func TestConfig_OIDC_Create_Namespace(t *testing.T) {
 				JWTValidationPubKeys:              []string{},
 				ProviderConfig:                    map[string]interface{}{},
 				UnsupportedCriticalCertExtensions: []string{},
+				ACRValues:                         []string{},
 			},
 		},
 	}
@@ -864,6 +873,7 @@ func TestConfig_OIDC_Update_Namespace(t *testing.T) {
 				JWTValidationPubKeys:              []string{},
 				ProviderConfig:                    map[string]interface{}{},
 				UnsupportedCriticalCertExtensions: []string{},
+				ACRValues:                         []string{},
 			},
 		},
 		"existing false, update something else": {
@@ -885,6 +895,7 @@ func TestConfig_OIDC_Update_Namespace(t *testing.T) {
 				JWTValidationPubKeys:              []string{},
 				ProviderConfig:                    map[string]interface{}{},
 				UnsupportedCriticalCertExtensions: []string{},
+				ACRValues:                         []string{},
 			},
 		},
 		"existing true, update to false": {
@@ -905,6 +916,7 @@ func TestConfig_OIDC_Update_Namespace(t *testing.T) {
 				JWTValidationPubKeys:              []string{},
 				ProviderConfig:                    map[string]interface{}{},
 				UnsupportedCriticalCertExtensions: []string{},
+				ACRValues:                         []string{},
 			},
 		},
 		"existing true, update something else": {
@@ -926,6 +938,7 @@ func TestConfig_OIDC_Update_Namespace(t *testing.T) {
 				JWTValidationPubKeys:              []string{},
 				ProviderConfig:                    map[string]interface{}{},
 				UnsupportedCriticalCertExtensions: []string{},
+				ACRValues:                         []string{},
 			},
 		},
 	}
